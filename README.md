@@ -120,7 +120,9 @@ Data anime_genre diubah menjadi matriks TF-IDF, di mana setiap baris merepresent
 
 ## Modeling
 
-Tahapan ini merupakan inti dari pembangunan sistem rekomendasi berbasis konten (content-based filtering), yang bertujuan untuk menyarankan anime berdasarkan kemiripan konten, khususnya dari sisi genre. Model yang digunakan dalam proyek ini adalah Content-Based Recommendation dengan pendekatan Text Feature Extraction menggunakan TF-IDF (Term Frequency–Inverse Document Frequency). Teknik ini mengekstraksi bobot dari kata-kata yang muncul pada kolom anime_genre, untuk mengukur seberapa penting sebuah genre bagi sebuah anime dibandingkan dengan seluruh anime lainnya dalam dataset.
+Tahapan ini merupakan inti dari pembangunan sistem rekomendasi berbasis konten (content-based filtering), yang bertujuan untuk menyarankan anime berdasarkan kemiripan konten, khususnya dari sisi genre. Model yang digunakan dalam proyek ini adalah Content-Based Recommendation dengan pendekatan Text Feature Extraction menggunakan TF-IDF (Term Frequency–Inverse Document Frequency). Content-based filtering adalah metode yang digunakan dalam sistem rekomendasi dan analisis data yang berfokus pada karakteristik atau konten dari item-item yang ingin direkomendasikan atau dianalisis. Pendekatan ini menggunakan atribut-atribut atau fitur-fitur item untuk menentukan kesamaan antara item yang ada dan preferensi pengguna (Maulid, 2023). Teknik TF-IDF mengekstraksi bobot dari kata-kata yang muncul pada kolom anime_genre, untuk mengukur seberapa penting sebuah genre bagi sebuah anime dibandingkan dengan seluruh anime lainnya dalam dataset.
+
+Setelah setiap anime direpresentasikan sebagai vektor TF-IDF, Cosine Similarity digunakan untuk menghitung kemiripan antar-anime berdasarkan genre. Dalam sebuah proses menghitung cosine similarity, pertama yang dilakukannya adalah melakukan sebuah perkalian skalar antara query dengan sebuah dokumen yang kemudian ditambahkan, lalu itu melakukan perkalian antara ukuran panjang dari dokumen dengan ukuran panjang query yang telah dikuadratkan, kesamaan kosinus mengukur kesamaan antara dua vektor ruang hasil kali dalam dengan cosinus sudut antara dua vektor dan menentukan apakah dua vektor menunjuk ke arah yang kira-kira sama (Sholihin, 2022). Cosine Similarity memberikan nilai antara 0 (tidak mirip) hingga 1 (identik). Nilai kemiripan ini memungkinkan sistem untuk mengurutkan dan memilih anime yang paling mirip dengan judul input.
 
 ### Perhitungan Cosine Similarity
 Matriks kesamaan dihitung menggunakan cosine similarity terhadap TF-IDF matrix. Cosine similarity mengukur sejauh mana dua anime memiliki kemiripan berdasarkan distribusi bobot genre mereka.
@@ -128,12 +130,19 @@ Matriks kesamaan dihitung menggunakan cosine similarity terhadap TF-IDF matrix. 
 ### Pembuatan DataFrame Cosine Similarity
 Hasil dari cosine similarity disimpan dalam sebuah DataFrame cosine_sim_df, dengan baris dan kolom berisi judul anime. Setiap nilai menunjukkan tingkat kesamaan antara dua anime berdasarkan kontennya.
 
+![image](https://github.com/user-attachments/assets/6f1e88a3-d7ea-40ad-a82f-49ad917071e0)
+
 ### Output Top-N 
 
 Berikut merupakan output Top-10 hasil rekomendasi untuk anime 'Cowboy Bebop' :
 
 ![image](https://github.com/user-attachments/assets/c241d9e3-b5f5-4d9d-80f6-05e08e0e73c4)
 
+### Daftar Pustaka
+
+Maulid, Reyvan. (2023). Content Based Filtering dalam Algoritma Data Science. Diakses pada 01 Juni 2025 dari https://dqlab.id/content-based-filtering-dalam-algoritma-data-science.
+
+Sholihin, Ahmad. (2022). Rekomendasi menggunakan Content Based Filtering dan Collaborative Filtering. Diakses pada 01 Juni 2025 dari https://medium.com/@ahmadsholihin1705/rekomendasi-menggunakan-content-based-filtering-dan-collaborative-filtering-2aab2aec8ebe.
 
 ## Evaluation
 Untuk mengevaluasi performa sistem rekomendasi berbasis konten ini, digunakan metrik Precision. Precision adalah salah satu metrik evaluasi yang umum digunakan dalam sistem informasi untuk mengukur ketepatan dari hasil rekomendasi. Metrik ini menunjukkan seberapa banyak rekomendasi yang diberikan benar-benar relevan dengan item input. Berikut merupakan rumus precision:

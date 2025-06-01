@@ -111,23 +111,21 @@ Output dari kode tersebut menunjukkan proses pembersihan data duplikat pada Data
 
 Sebelum masuk ke tahap pemodelan, dilakukan penyusunan ulang dataset dengan mengambil hanya kolom-kolom yang relevan, yaitu anime_id, title, dan genre. Masing-masing kolom kemudian dikonversi ke dalam bentuk list untuk memudahkan pembentukan struktur data baru yang lebih sederhana. Selanjutnya, dibuat sebuah DataFrame baru bernama anime_new yang berisi tiga kolom: id, anime_title, dan anime_genre. Dataset ini disiapkan khusus sebagai input utama pada tahap content-based filtering, dengan fokus utama pada kesesuaian antara judul dan genre anime. Langkah ini bertujuan untuk menyederhanakan data dan memfokuskan informasi hanya pada elemen-elemen yang diperlukan dalam proses sistem rekomendasi berbasis konten.
 
+### 7. Inisialisasi TF-IDF Vectorizer
+TfidfVectorizer digunakan untuk mengubah data anime_genre menjadi vektor numerik berdasarkan frekuensi kemunculan genre dalam setiap entri anime. Parameter token_pattern=r"(?u)\b[\w\-]+\b" digunakan untuk mempertahankan genre yang mengandung tanda hubung atau spasi yang telah diubah sebelumnya menjadi underscore (contoh: "slice_of_life").
+
+### 8. Pembuatan TF-IDF Matrix
+Data anime_genre diubah menjadi matriks TF-IDF, di mana setiap baris merepresentasikan sebuah anime, dan setiap kolom merepresentasikan sebuah genre. Nilai dalam matriks menunjukkan bobot genre tersebut pada masing-masing anime.
+
 
 ## Modeling
 
 Tahapan ini merupakan inti dari pembangunan sistem rekomendasi berbasis konten (content-based filtering), yang bertujuan untuk menyarankan anime berdasarkan kemiripan konten, khususnya dari sisi genre. Model yang digunakan dalam proyek ini adalah Content-Based Recommendation dengan pendekatan Text Feature Extraction menggunakan TF-IDF (Term Frequency–Inverse Document Frequency). Teknik ini mengekstraksi bobot dari kata-kata yang muncul pada kolom anime_genre, untuk mengukur seberapa penting sebuah genre bagi sebuah anime dibandingkan dengan seluruh anime lainnya dalam dataset.
 
-Langkah-langkah utama dalam proses modeling adalah sebagai berikut:
-
-### 1. Inisialisasi TF-IDF Vectorizer
-TfidfVectorizer digunakan untuk mengubah data anime_genre menjadi vektor numerik berdasarkan frekuensi kemunculan genre dalam setiap entri anime. Parameter token_pattern=r"(?u)\b[\w\-]+\b" digunakan untuk mempertahankan genre yang mengandung tanda hubung atau spasi yang telah diubah sebelumnya menjadi underscore (contoh: "slice_of_life").
-
-### 2. Pembuatan TF-IDF Matrix
-Data anime_genre diubah menjadi matriks TF-IDF, di mana setiap baris merepresentasikan sebuah anime, dan setiap kolom merepresentasikan sebuah genre. Nilai dalam matriks menunjukkan bobot genre tersebut pada masing-masing anime.
-
-### 3. Perhitungan Cosine Similarity
+### Perhitungan Cosine Similarity
 Matriks kesamaan dihitung menggunakan cosine similarity terhadap TF-IDF matrix. Cosine similarity mengukur sejauh mana dua anime memiliki kemiripan berdasarkan distribusi bobot genre mereka.
 
-### 4. Pembuatan DataFrame Cosine Similarity
+### Pembuatan DataFrame Cosine Similarity
 Hasil dari cosine similarity disimpan dalam sebuah DataFrame cosine_sim_df, dengan baris dan kolom berisi judul anime. Setiap nilai menunjukkan tingkat kesamaan antara dua anime berdasarkan kontennya.
 
 ### Output Top-N 

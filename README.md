@@ -55,9 +55,9 @@ DataFrame yang ditampilkan memiliki 19.311 entri dengan indeks dari 8 hingga 19.
 - members : 0
 - popularity : 0
 - ranked : 3.212
-- score : 0
-- img_url : 0
-- link : 579
+- score : 579
+- img_url : 180
+- link : 0
 
 Tipe data terdiri dari float64 (3 kolom: episodes, ranked, score), int64 (3 kolom: id, members, popularity), dan object (6 kolom: title, synopsis, genre, aired, img_url, link).
 
@@ -105,7 +105,7 @@ Data duplikat yang memiliki informasi identik lebih dari satu kali dihapus untuk
 
 ![image](https://github.com/user-attachments/assets/7712ad28-34c2-4790-b385-8229db0aad88)
 
-Output dari kode tersebut menunjukkan proses pembersihan data duplikat pada DataFrame fix_df. Pada langkah pertama, perintah fix_df.duplicated().sum() menghasilkan nilai 3.885, yang berarti terdapat 3.885 baris duplikat ditemukan. Data duplikat ini kemudian dihapus dan menyisakan 16141 entri data pada dataset.
+Output dari kode tersebut menunjukkan proses pembersihan data duplikat pada DataFrame fix_df. Pada langkah pertama, perintah fix_df.duplicated().sum() menghasilkan nilai 3.088, yang berarti terdapat 3.088 baris duplikat ditemukan. Data duplikat ini kemudian dihapus dan menyisakan 16141 entri data pada dataset.
 
 ### 6. Penyusunan Dataset Ringkas untuk Modelling
 
@@ -120,7 +120,7 @@ Data anime_genre diubah menjadi matriks TF-IDF, di mana setiap baris merepresent
 
 ## Modeling
 
-Tahapan ini merupakan inti dari pembangunan sistem rekomendasi berbasis konten (content-based filtering), yang bertujuan untuk menyarankan anime berdasarkan kemiripan konten, khususnya dari sisi genre. Model yang digunakan dalam proyek ini adalah Content-Based Recommendation dengan pendekatan Text Feature Extraction menggunakan TF-IDF (Term Frequency–Inverse Document Frequency). Content-based filtering adalah metode yang digunakan dalam sistem rekomendasi dan analisis data yang berfokus pada karakteristik atau konten dari item-item yang ingin direkomendasikan atau dianalisis. Pendekatan ini menggunakan atribut-atribut atau fitur-fitur item untuk menentukan kesamaan antara item yang ada dan preferensi pengguna (Maulid, 2023). Teknik TF-IDF mengekstraksi bobot dari kata-kata yang muncul pada kolom anime_genre, untuk mengukur seberapa penting sebuah genre bagi sebuah anime dibandingkan dengan seluruh anime lainnya dalam dataset.
+Tahapan ini merupakan inti dari pembangunan sistem rekomendasi berbasis konten (content-based filtering), yang bertujuan untuk menyarankan anime berdasarkan kemiripan konten, khususnya dari sisi genre. Model yang digunakan dalam proyek ini adalah Content-Based Recommendation dengan pendekatan Text Feature Extraction menggunakan TF-IDF. Content-based filtering adalah metode yang digunakan dalam sistem rekomendasi dan analisis data yang berfokus pada karakteristik atau konten dari item-item yang ingin direkomendasikan atau dianalisis. Pendekatan ini menggunakan atribut-atribut atau fitur-fitur item untuk menentukan kesamaan antara item yang ada dan preferensi pengguna (Maulid, 2023).
 
 Setelah setiap anime direpresentasikan sebagai vektor TF-IDF, Cosine Similarity digunakan untuk menghitung kemiripan antar-anime berdasarkan genre. Dalam sebuah proses menghitung cosine similarity, pertama yang dilakukannya adalah melakukan sebuah perkalian skalar antara query dengan sebuah dokumen yang kemudian ditambahkan, lalu itu melakukan perkalian antara ukuran panjang dari dokumen dengan ukuran panjang query yang telah dikuadratkan, kesamaan kosinus mengukur kesamaan antara dua vektor ruang hasil kali dalam dengan cosinus sudut antara dua vektor dan menentukan apakah dua vektor menunjuk ke arah yang kira-kira sama (Sholihin, 2022). Cosine Similarity memberikan nilai antara 0 (tidak mirip) hingga 1 (identik). Nilai kemiripan ini memungkinkan sistem untuk mengurutkan dan memilih anime yang paling mirip dengan judul input.
 
